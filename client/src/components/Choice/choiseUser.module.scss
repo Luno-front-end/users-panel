@@ -1,0 +1,113 @@
+.wrapper_choiseUser {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: inline-block;
+
+  min-width: 300px;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+}
+
+.btn {
+  position: relative;
+  z-index: 1000;
+
+  border: 5px solid rgb(71, 71, 71);
+  background-color: transparent;
+
+  width: 100%;
+
+  padding: 8px;
+
+  font-size: 23px;
+
+  border-radius: 5px;
+  transition: all 250ms linear;
+
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+  &.active_btn {
+    margin-bottom: 115px;
+  }
+
+  &[name="btn-disabled"]:disabled {
+    background-color: rgb(111, 111, 111);
+    color: white;
+
+    border: 5px solid rgb(111, 111, 111);
+    cursor: default;
+
+    transition: all 250ms linear;
+  }
+
+  &:hover {
+    background-color: rgb(255, 77, 0);
+    color: white;
+
+    border: 5px solid rgb(255, 77, 0);
+    transition: all 250ms linear;
+  }
+
+  &:focus {
+    background-color: rgb(255, 77, 0);
+    color: white;
+
+    border: 5px solid rgb(255, 77, 0);
+    transition: all 250ms linear;
+  }
+}
+
+.wrapper_orgName {
+  position: absolute;
+  top: 70px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  margin-bottom: 15px;
+
+  transform: translateY(-200%);
+  transition: all 250ms linear;
+
+  &.active_orgName {
+    transform: translateY(0%);
+    transition: all 250ms linear;
+  }
+}
+
+.name_org {
+  height: 30px;
+
+  padding: 5px;
+  margin-bottom: 15px;
+
+  outline: none;
+  border-radius: 5px;
+  border: 2px solid rgb(95, 95, 95);
+
+  &:focus {
+    border: 2px solid rgb(255, 77, 0);
+
+    outline: none;
+  }
+}
+
+.btn_next {
+  background-color: rgb(124, 255, 124);
+
+  padding: 5px;
+
+  font-size: 18px;
+
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+}

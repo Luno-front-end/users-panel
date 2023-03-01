@@ -1,0 +1,54 @@
+.wrapper_form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+.form_auth {
+  display: flex;
+  flex-direction: column;
+
+  width: 350px;
+
+  padding: 15px;
+
+  border: 5px solid rgb(71, 71, 71);
+  border-radius: 5px;
+}
+.input_auth {
+  margin-bottom: 15px;
+  height: 30px;
+  padding: 5px;
+  border: 2px solid rgb(95, 95, 95);
+  outline: none;
+  border-radius: 5px;
+
+  &:focus {
+    border: 2px solid rgb(255, 77, 0);
+
+    outline: none;
+  }
+}
+.btn_auth {
+  border: 5px solid rgb(71, 71, 71);
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 8px;
+  transition: all 250ms linear;
+  font-size: 23px;
+
+  &:hover {
+    border: 5px solid rgb(255, 77, 0);
+    background-color: rgb(255, 77, 0);
+    transition: all 250ms linear;
+    color: white;
+  }
+
+  &:focus {
+    border: 5px solid rgb(255, 77, 0);
+    background-color: rgb(255, 77, 0);
+    color: white;
+    transition: all 250ms linear;
+  }
+}
