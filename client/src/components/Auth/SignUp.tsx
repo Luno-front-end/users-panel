@@ -1,14 +1,19 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ChoiceUser } from "../Choice/ChoiceUser";
 import { FormReg } from "./FormReg";
 
-export const SignUp: FC = () => {
+interface SignUpProps {
+  setFiles: Dispatch<SetStateAction<{}>>;
+  files: object;
+}
+
+export const SignUp: FC<SignUpProps> = ({ setFiles, files }) => {
   return (
     <>
       <Routes>
-        <Route path="choise" element={<ChoiceUser />} />
-        <Route path="/" element={<FormReg />} />
+        <Route path="choise" element={<ChoiceUser setFiles={setFiles} />} />
+        <Route path="/" element={<FormReg files={files} />} />
       </Routes>
     </>
   );

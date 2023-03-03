@@ -1,6 +1,8 @@
 .wrapper_header {
+  position: relative;
+  z-index: 5;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   background-color: rgb(71, 71, 71);
@@ -12,6 +14,7 @@
 }
 .auth_list {
   display: flex;
+  align-items: center;
 }
 .auth_item {
   &:not(:last-child) {
@@ -38,5 +41,19 @@
   padding: 10px;
 
   border-radius: 5px;
+  text-decoration: none;
+}
+.profile_item {
+  position: relative;
+}
+.profile {
+  display: block;
+  background-color: white;
+  width: 45px;
+  height: 45px;
+
+  font-weight: 700;
+
+  border-radius: 50%;
   text-decoration: none;
 }

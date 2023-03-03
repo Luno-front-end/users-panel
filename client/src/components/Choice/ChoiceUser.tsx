@@ -1,9 +1,13 @@
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 
 import s from "./choiseUser.module.scss";
 import { NameOrganization } from "./NameOrganization";
 
-export const ChoiceUser: FC = () => {
+interface ChoiceUserProps {
+  setFiles: Dispatch<SetStateAction<{}>>;
+}
+
+export const ChoiceUser: FC<ChoiceUserProps> = ({ setFiles }) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const onActiveChangeNameOrg = () => {
@@ -23,7 +27,9 @@ export const ChoiceUser: FC = () => {
         <button type="submit" className={s.btn} name="btn-disabled" disabled>
           Фізична особа
         </button>
-        {isActive && <NameOrganization isActive={isActive} />}
+        {isActive && (
+          <NameOrganization isActive={isActive} setFiles={setFiles} />
+        )}
       </div>
     </>
   );

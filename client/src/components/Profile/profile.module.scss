@@ -1,0 +1,84 @@
+.option_profile {
+  position: absolute;
+  top: 90px;
+  right: 0;
+
+  background-color: rgb(240, 123, 27);
+
+  padding: 15px;
+
+  border-bottom-left-radius: 5px;
+
+  transform: translateY(-150%);
+  transition: all 250ms linear;
+}
+
+.option_profileList {
+}
+.option_profileItem {
+  margin-bottom: 10px;
+}
+.btn_logout {
+  text-decoration: none;
+
+  color: rgb(48, 48, 48);
+  font-weight: 600;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  transition: color 250ms linear;
+
+  &:hover {
+    color: rgb(255, 255, 255);
+    transition: color 250ms linear;
+  }
+}
+
+.active_optionProfile {
+  transform: translateY(0%);
+  transition: all 250ms linear;
+}
+.wrapperProfile {
+  position: relative;
+
+  background-color: rgb(71, 71, 71);
+
+  width: 100%;
+  height: calc(100vh - 89px);
+}
+.listProfile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+.itemProfile {
+  margin-bottom: 15px;
+}
+
+.name {
+  color: rgb(255, 77, 0);
+
+  font-size: 30px;
+  font-weight: 600;
+}
+.nameState {
+  color: white;
+  font-size: 25px;
+}
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 700;
+}

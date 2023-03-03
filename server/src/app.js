@@ -2,7 +2,10 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const monoose = require("mongoose");
 
-const authRouter = require("./routers/authRouters");
+const corsMiddleware = require("./middleware/corsMiddleware");
+
+const usersRouter = require("./routers/usersRouters");
+const uploadFileRouter = require("./routers/filesRouters");
 
 require("dotenv").config();
 
@@ -10,16 +13,14 @@ const app = express();
 
 app.use(express.json());
 app.use(fileUpload({}));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(corsMiddleware);
+// app.use((req, res, next) => {
+//   res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+//   next();
+// });
 
-app.use("/auth", authRouter);
+app.use("/auth", usersRouter);
+app.use("/file", uploadFileRouter);
 
 const start = async () => {
   try {

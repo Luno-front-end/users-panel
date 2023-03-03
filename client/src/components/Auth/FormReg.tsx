@@ -1,25 +1,26 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import s from "./auth.module.scss";
-import { useSignUp } from "../hooks/useSignUp";
+import { useAuth } from "../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
 import { getUserValue } from "../../Redux/slices/user";
-import { IUser } from "../../types/userTypes";
 
-export const FormReg: FC = () => {
+interface FormRegProps {
+  files: object;
+}
+
+export const FormReg: FC<FormRegProps> = ({ files }) => {
   const [firstname, setFirstName] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  // const files = useSelector((state: RootState) => state.uploadFiles);
 
-  const { registration } = useSignUp();
+  const { registrationUser } = useAuth();
 
   const dispatch = useDispatch();
-  const value = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    console.log(value);
     dispatch(
       getUserValue({
         firstname,
@@ -56,13 +57,11 @@ export const FormReg: FC = () => {
   };
 
   return (
-    <div
-      className={s.wrapper_form}
-      onSubmit={(e) => {
-        registration(e);
-      }}
-    >
-      <form className={s.form_auth}>
+    <div className={s.wrapper_form}>
+      <form
+        className={s.form_auth}
+        onSubmit={(e) => registrationUser(e, files)}
+      >
         <input
           type="text"
           name="firstname"

@@ -1,23 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "../../types/userTypes";
 import type { RootState } from "../store";
 
 interface UserState {
+  _id: string;
   firstname: string;
   lastname: string;
   nickname: string;
   email: string;
   password: string;
-  nameOrganization: string;
+  organizationName: string;
+  file: string;
 }
 
 const initialState: UserState = {
+  _id: "",
   firstname: "",
   lastname: "",
   nickname: "",
   email: "",
   password: "",
-  nameOrganization: "",
+  organizationName: "",
+  file: "",
 };
 
 const userSlice = createSlice({
@@ -25,14 +28,17 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     getUserValue: (state, action: PayloadAction<any>) => {
+      console.log(action.payload._id);
+      state._id = action.payload._id;
       state.firstname = action.payload.firstname;
       state.lastname = action.payload.lastname;
       state.nickname = action.payload.nickname;
       state.email = action.payload.email;
       state.password = action.payload.password;
+      state.file = action.payload.file;
     },
     getOrgName: (state, action: PayloadAction<any>) => {
-      state.nameOrganization = action.payload.nameOrg;
+      state.organizationName = action.payload.nameOrg;
     },
   },
 });

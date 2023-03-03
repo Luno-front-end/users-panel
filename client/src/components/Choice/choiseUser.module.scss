@@ -32,7 +32,7 @@
     margin-bottom: 15px;
   }
   &.active_btn {
-    margin-bottom: 115px;
+    margin-bottom: 195px;
   }
 
   &[name="btn-disabled"]:disabled {
@@ -97,6 +97,12 @@
 
     outline: none;
   }
+}
+.file_org {
+  height: 30px;
+
+  padding: 5px;
+  margin-bottom: 15px;
 }
 
 .btn_next {

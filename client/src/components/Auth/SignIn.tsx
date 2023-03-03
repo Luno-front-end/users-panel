@@ -1,19 +1,19 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAuthUserValue } from "../../Redux/slices/authUser";
-import { useSignUp } from "../hooks/useSignUp";
+import { getUserValue } from "../../Redux/slices/user";
+import { useAuth } from "../hooks/useAuth";
 import s from "./auth.module.scss";
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { login } = useSignUp();
+  const { login } = useAuth();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
-      getAuthUserValue({
+      getUserValue({
         email,
         password,
       })
@@ -61,7 +61,7 @@ export const SignIn: FC = () => {
           onChange={handleChange}
         />
         <button type="submit" className={s.btn_auth}>
-          Зареєструватися
+          Авторизуватися
         </button>
       </form>
     </div>
