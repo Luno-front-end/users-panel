@@ -20,9 +20,7 @@ app.use("/file", uploadFileRouter);
 
 const start = async () => {
   try {
-    await monoose.connect(
-      "mongodb+srv://root:root@users.2tuvvt3.mongodb.net/users?retryWrites=true&w=majority"
-    );
+    await monoose.connect(process.env.DB_CONNECT);
     app.listen(process.env.PORT, () =>
       console.log(`listen ${process.env.PORT}`)
     );
