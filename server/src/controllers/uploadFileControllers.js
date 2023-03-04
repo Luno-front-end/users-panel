@@ -9,9 +9,10 @@ const uploadFile = async (req, res) => {
     const resFile = req.files.file;
     const type = resFile.name.split(".").pop();
     const decodedFileName = decodeURIComponent(resFile.name);
-
+    const delSpace = decodedFileName.replace(/ /g, "_");
+    console.log(delSpace);
     const file = new File({
-      name: decodedFileName,
+      name: delSpace,
       type,
       path: dirPath + `/${req.user.id}`,
       user: req.user.id,
@@ -32,7 +33,7 @@ const uploadFile = async (req, res) => {
     );
 
     fs.mkdirSync(dirPath + `/${req.user.id}`);
-    const path = dirPath + `/${req.user.id}/${decodedFileName}`;
+    const path = dirPath + `/${req.user.id}/${delSpace}`;
     await resFile.mv(path, "utf8");
 
     res.status(200).json({ file: thisFile });

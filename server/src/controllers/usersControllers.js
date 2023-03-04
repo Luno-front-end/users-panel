@@ -124,7 +124,19 @@ const auth = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const users = await User.find({});
-    return res.json({ users });
+
+    const responseUsers = users.map((user) => {
+      return {
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        nickname: user.nickname,
+        email: user.email,
+        organizationName: user.organizationName,
+        fileName: user.fileName,
+      };
+    });
+    return res.json({ users: responseUsers });
   } catch (e) {}
 };
 
