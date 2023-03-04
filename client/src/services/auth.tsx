@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { IUser } from "../types/userTypes";
 import File from "./uploadFiles";
 
-const BASE_URL = "http://localhost:8080/auth";
+const BASE_URL = "https://user-panel-ddhs.onrender.com/auth";
 
 const registration = async (
   e: React.FormEvent,
