@@ -1,7 +1,9 @@
+import { AxiosError } from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../Redux/slices/authUser";
+import { onNotify, setMessage } from "../../Redux/slices/notify";
 import { RootState } from "../../Redux/store";
 import Auth from "../../services/auth";
 
@@ -23,22 +25,45 @@ export const useAuth = () => {
     } catch (err: any) {
       dispatch(auth({ token: "", user: [], isAuth: false }));
       navigate("/signup/choise");
-      console.log(err);
-      console.log(err.response.data.valid.errors);
+
+      const activeError = err?.response?.data?.valid?.errors
+        ? err.response.data.valid.errors[0].msg
+        : err.response.data.message;
+
+      dispatch(onNotify(true));
+
+      dispatch(
+        setMessage({
+          erorrMessage: activeError,
+        })
+      );
+      setTimeout(() => {
+        dispatch(onNotify(false));
+      }, 7000);
     }
   };
 
   const login = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
-      const data = await Auth.login(e, userInfo);
-      console.log("log", data);
+    const data = await Auth.login(e, userInfo).catch((err) => err);
 
-      dispatch(auth({ token: data.token, user: [data.user], isAuth: true }));
+    if (!!data?.response?.status) {
+      dispatch(onNotify(true));
+      dispatch(
+        setMessage({
+          erorrMessage: data.response.data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(onNotify(false));
+      }, 7000);
+      return;
+    }
 
-      navigate("/");
-    } catch (error) {}
+    dispatch(auth({ token: data.token, user: [data.user], isAuth: true }));
+
+    navigate("/");
   };
 
   const authUser = async () => {
@@ -46,9 +71,15 @@ export const useAuth = () => {
       const data = await Auth.authUser(userAuthInfo.userAuth.token);
 
       dispatch(auth({ token: data.token, user: [data.user], isAuth: true }));
-    } catch (error) {
+    } catch (err: any) {
       navigate("/signin");
       dispatch(auth({ token: "", user: [], isAuth: false }));
+      dispatch(onNotify(true));
+      dispatch(
+        setMessage({
+          erorrMessage: err.message,
+        })
+      );
     }
   };
 

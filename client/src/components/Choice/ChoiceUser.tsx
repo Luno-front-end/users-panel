@@ -4,7 +4,7 @@ import s from "./choiseUser.module.scss";
 import { NameOrganization } from "./NameOrganization";
 
 interface ChoiceUserProps {
-  setFiles: Dispatch<SetStateAction<{}>>;
+  setFiles: Dispatch<SetStateAction<object>>;
 }
 
 export const ChoiceUser: FC<ChoiceUserProps> = ({ setFiles }) => {

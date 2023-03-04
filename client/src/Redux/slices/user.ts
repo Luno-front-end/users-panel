@@ -28,7 +28,6 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     getUserValue: (state, action: PayloadAction<any>) => {
-      console.log(action.payload._id);
       state._id = action.payload._id;
       state.firstname = action.payload.firstname;
       state.lastname = action.payload.lastname;

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { IUser } from "../types/userTypes";
 import File from "./uploadFiles";
 
@@ -9,37 +9,40 @@ const registration = async (
   file: object,
   userInfo: IUser
 ) => {
-  try {
-    e.preventDefault();
-    const res = await axios.post(`${BASE_URL}/registration`, {
+  let err = null;
+  e.preventDefault();
+
+  const res = await axios
+    .post(`${BASE_URL}/registration`, {
       firstname: userInfo.firstname,
       lastname: userInfo.lastname,
       nickname: userInfo.nickname,
       email: userInfo.email,
       password: userInfo.password,
       nameOrganization: userInfo.organizationName,
-    });
+    })
+    .then((res: AxiosResponse) => res.data);
 
-    const data = await res.data;
-    await File.uploadFile(file, data.token);
-    return data;
-  } catch (err: any) {
-    console.log(err);
-    console.log(err.response.data.valid.errors);
+  const resFile = await File.uploadFile(file, res.token);
+
+  if (!!resFile?.response?.status) {
+    err = resFile;
+
+    return err;
   }
+
+  return err !== null ? resFile : res;
 };
 
 const login = async (e: React.FormEvent, userInfo: IUser) => {
-  try {
-    e.preventDefault();
-    const res = await axios.post(`${BASE_URL}/login`, {
+  e.preventDefault();
+  const res = await axios
+    .post(`${BASE_URL}/login`, {
       email: userInfo.email,
       password: userInfo.password,
-    });
-    const data = await res.data;
-
-    return data;
-  } catch (error) {}
+    })
+    .then((res: AxiosResponse) => res.data);
+  return res;
 };
 
 const authUser = async (token: string) => {

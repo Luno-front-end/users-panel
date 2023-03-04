@@ -8,6 +8,7 @@ const User = new Schema({
   password: { type: String, required: true },
   organizationName: { type: String, ref: "Organization" },
   file: { type: ObjectId, ref: "File" },
+  fileName: { type: String, ref: "File" },
 });
 
 module.exports = model("User", User);

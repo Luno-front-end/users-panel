@@ -1,6 +1,8 @@
 import s from "./home.module.scss";
 
-export const HomePage = () => {
+import React, { FC } from "react";
+
+export const HomePage: FC = () => {
   return (
     <div className={s.wraper_hiro}>
       <h1 className={s.hiro_header}>

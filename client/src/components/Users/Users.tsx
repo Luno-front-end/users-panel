@@ -11,14 +11,10 @@ import { useUsers } from "../hooks/useUsers";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
-import { IUser } from "../../types/userTypes";
 import { useAuth } from "../hooks/useAuth";
-import File from "../../services/uploadFiles";
-import Api from "../../services/getUsers";
 
 export const Users = () => {
   const users = useSelector((state: RootState) => state.allUsers.user);
-  const userAuth = useSelector((state: RootState) => state.userAuth.userAuth);
 
   const { authUser } = useAuth();
 
@@ -29,14 +25,6 @@ export const Users = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
-
-  const downloadClick = async () => {
-    // e.stopPropagation();
-
-    const file = await Api.getFile(userAuth.user[0].file, userAuth.token);
-
-    File.downloadFile(file.file._id, file.file.name, userAuth.token);
-  };
 
   return (
     <>
@@ -71,9 +59,6 @@ export const Users = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <button type="submit" onClick={downloadClick}>
-        СКАЧАТЬ!
-      </button>
     </>
   );
 };

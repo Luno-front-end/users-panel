@@ -3,7 +3,6 @@ const Organization = require("../models/Organization");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const File = require("../models/File");
 
 const generateAccessTocken = (id, email) => {
   const payload = {
@@ -18,7 +17,8 @@ const registration = async (req, res) => {
     const valid = validationResult(req);
     if (!valid.isEmpty()) {
       return res.status(400).json({
-        message: "Щось пішло не так, спробуйте ще раз зареєструватися",
+        message:
+          "Щось пішло не так, спробуйте ще раз зареєструватися. Перевірьте назву організації і наявність файлу організації.",
         valid,
       });
     }
@@ -26,16 +26,20 @@ const registration = async (req, res) => {
       req.body;
     const checkNickname = await User.findOne({ nickname });
     const checkEmail = await User.findOne({ email });
-    const orgTest = new Organization({ name: nameOrganization });
+    const organization = new Organization({ name: nameOrganization });
+    const checkOrganization = await Organization.findOne({
+      name: nameOrganization,
+    });
 
-    if (checkNickname || checkEmail) {
-      return res
-        .status(400)
-        .json({ message: "Користувач з таким імʼям або нікнеймом вже існує" });
+    if (checkNickname || checkEmail || checkOrganization) {
+      return res.status(400).json({
+        message:
+          "Користувач з таким імʼям, нікнеймом або організацією вже існує",
+      });
     }
     const heshPass = bcrypt.hashSync(password, 5);
 
-    await orgTest.save();
+    await organization.save();
 
     const organizationName = await Organization.findOne({
       name: nameOrganization,
@@ -54,7 +58,6 @@ const registration = async (req, res) => {
     const loginUser = await login(req, res);
     return loginUser;
   } catch (e) {
-    console.log(e);
     res.status(400).json({ message: "Error registration" });
   }
 };
@@ -91,7 +94,6 @@ const login = async (req, res) => {
       },
     });
   } catch (e) {
-    console.log(e);
     res.status(400).json({ message: "Error login" });
   }
 };
@@ -115,7 +117,6 @@ const auth = async (req, res) => {
       },
     });
   } catch (e) {
-    console.log(e);
     res.status(400).json({ message: "Error auth" });
   }
 };

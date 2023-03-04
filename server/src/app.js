@@ -14,10 +14,6 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload({}));
 app.use(corsMiddleware);
-// app.use((req, res, next) => {
-//   res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-//   next();
-// });
 
 app.use("/auth", usersRouter);
 app.use("/file", uploadFileRouter);

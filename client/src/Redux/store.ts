@@ -9,6 +9,7 @@ import userReducer from "./slices/user";
 import userAuthReducers from "./slices/authUser";
 import uploadFilesReducers from "./slices/uploadFiles";
 import allUsersReducers from "./slices/allUsers";
+import notifyReducers from "./slices/notify";
 
 const customMidleware = getDefaultMiddleware({ serializableCheck: false });
 
@@ -22,6 +23,7 @@ export const store = configureStore({
     userAuth: psUserReducers,
     uploadFiles: uploadFilesReducers,
     allUsers: allUsersReducers,
+    notify: notifyReducers,
   },
   middleware: customMidleware,
 });

@@ -9,15 +9,18 @@ import { PrivateRoute } from "./components/Routes/PrivateRoute";
 import { Profile } from "./components/Profile/Profile";
 import { Users } from "./components/Users/Users";
 import { PublicRoute } from "./components/Routes/PublicRoute";
-import { useUsers } from "./components/hooks/useUsers";
+import { Tost } from "./components/Tost/Tost";
+import { useSelector } from "react-redux";
+import { RootState } from "./Redux/store";
 
 export const App: FC = () => {
   const [files, setFiles] = useState<object>({});
-
-  const { fetchUsers } = useUsers();
+  const onErorr = useSelector((state: RootState) => state.notify);
 
   return (
     <>
+      {onErorr.activeNotify && <Tost />}
+
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

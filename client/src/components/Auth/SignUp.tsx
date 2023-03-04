@@ -4,7 +4,7 @@ import { ChoiceUser } from "../Choice/ChoiceUser";
 import { FormReg } from "./FormReg";
 
 interface SignUpProps {
-  setFiles: Dispatch<SetStateAction<{}>>;
+  setFiles: Dispatch<SetStateAction<object>>;
   files: object;
 }
 

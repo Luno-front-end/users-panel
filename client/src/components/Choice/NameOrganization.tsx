@@ -2,16 +2,16 @@ import {
   ChangeEvent,
   Dispatch,
   FC,
-  HTMLInputTypeAttribute,
   SetStateAction,
   useEffect,
   useState,
 } from "react";
+// import CyrillicToTranslit from "cyrillic-to-translit-js";
 import s from "./choiseUser.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getOrgName } from "../../Redux/slices/user";
-import { upload } from "../../Redux/slices/uploadFiles";
+import { onNotify, setMessage } from "../../Redux/slices/notify";
 
 interface NameOrganizationProps {
   isActive: boolean;
@@ -25,7 +25,7 @@ export const NameOrganization: FC<NameOrganizationProps> = ({
   const [nameOrg, setNameOrg] = useState<string>("");
   const [lengthFile, setLengthFile] = useState<number>(0);
   const navigate = useNavigate();
-
+  // const cyrillicToTranslit = new CyrillicToTranslit();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,46 +35,53 @@ export const NameOrganization: FC<NameOrganizationProps> = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setFiles(files!);
-    //  dispatch(fileUrl);
-    // const formData = new FormData();
-    // if (files) {
-    //   for (let i = 0; i < files.length; i++) {
-    //     console.log(files[i]);
-    //     formData.append("file", files[i]);
-    //   }
-    // }
-    // console.log(fileUrl);
 
-    // dispatch(upload(formData));
-
-    // console.log(files);
-    // const files = e.target.files;
-
-    // const formData = new FormData();
-    // formData.append("file", files);
-
-    // const fileListAsArray = Array.from(file);
-    // const newArrFile = [...file];
     switch (e.target.name) {
       case "name":
         setNameOrg(e.target.value);
         break;
       case "file":
         setLengthFile(e.target.files?.length!);
+        // const translite = cyrillicToTranslit
+        //   .transform(`${files?.[0].name}`)
+        //   .toLowerCase();
 
+        // const selectedFile = files?.[0];
+        // const renamedFile = new File([selectedFile!], translite, {
+        //   type: selectedFile?.type,
+        // });
         break;
 
       default:
         break;
     }
   };
-  // console.log(first);
 
   const handleClick = () => {
     if (nameOrg.length <= 2) {
+      dispatch(onNotify(true));
+      dispatch(
+        setMessage({
+          erorrMessage:
+            "В полі назва організації повинні бути мінімум 2 літери",
+        })
+      );
+      setTimeout(() => {
+        dispatch(onNotify(false));
+      }, 7000);
+
       return;
     }
     if (lengthFile < 1) {
+      dispatch(onNotify(true));
+      dispatch(
+        setMessage({
+          erorrMessage: "Ви не завантажили файл",
+        })
+      );
+      setTimeout(() => {
+        dispatch(onNotify(false));
+      }, 7000);
       return;
     }
     return navigate("/signup");

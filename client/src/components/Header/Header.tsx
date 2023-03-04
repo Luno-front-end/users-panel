@@ -2,6 +2,8 @@ import { ChangeEvent, FC, MouseEventHandler, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { RootState } from "../../Redux/store";
+import { ButtonDownloadFile } from "../ButtonDownloadFile/ButtonDownloadFile";
+import { ButtonDownloadUsers } from "../ButtonDownloadUsers/ButtonDownloadUsers";
 import { OptionMainProfile } from "../Profile/OptionMainProfile";
 import s from "./header.module.scss";
 
@@ -59,6 +61,17 @@ export const Header: FC = () => {
           </ul>
         ) : (
           <ul className={s.auth_list}>
+            {location.pathname === "/users" && (
+              <>
+                <li className={s.auth_item}>
+                  <ButtonDownloadUsers />
+                </li>
+                <li className={s.auth_item}>
+                  <ButtonDownloadFile />
+                </li>
+              </>
+            )}
+
             <li className={s.auth_item}>
               <NavLink
                 to="/users"
